@@ -215,9 +215,26 @@ $champions = [
 <?php include 'header.php'; ?>
 
 <main class="p-8">
-    <h1 class="text-5xl font-bold mb-6 text-chart-1 text-center">ENTER THE ARENA</h1>
-    <p class="text-center text-muted-foreground mb-12">Select your champion and prepare for battle!</p>
+    <div class="flex flex-col items-center justify-center mb-12">
+        <h1 class="text-5xl font-bold mb-6 text-chart-1 text-center">ENTER THE ARENA</h1>
+        <small class="text-muted-foreground">SEASON 3 &bullet; <span class="text-chart-2 font-bold">INFINITY ENERGIES IS OPEN!</span></small>
+    </div>
+    <!-- Random realm on page load -->
+    <?php include 'components/realm.php'; ?>
 
+    <!-- Champion Search -->
+    <div class="mx-auto mb-8 flex flex-col items-center justify-center w-3xl p-4">
+        <p class="text-lg font-medium text-muted-foreground mb-4">Search for your favorite champions:</p>
+        <form class="mb-4">
+            <label for="search" class="sr-only">Search Champions</label>
+            <input type="text" id="search" placeholder="Search Champions..."
+                   class="p-3 rounded-lg border border-border focus:ring-2 focus:ring-primary focus:outline-none transition-colors">
+            <button type="button" id="fetch-champions"
+                    class="ml-2 px-4 py-3 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors">
+                Fetch Champion
+            </button>
+        </form>
+    </div>
 
     <h2 class="text-2xl font-semibold mb-6">Champions</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -257,6 +274,7 @@ $champions = [
 <?php include 'components/player.php'; ?>
 <?php include 'components/unlock.php'; ?>
 <?php include 'components/stats.php'; ?>
+<?php include 'components/search-modal.php'; ?>
 
 
 <script>const champions = <?= json_encode($champions) ?>;</script>

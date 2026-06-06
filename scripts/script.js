@@ -27,7 +27,13 @@ const statsMeta = document.getElementById("stats-meta");
 const statsLegend = document.getElementById("stats-legend");
 const closeStatsBtn = document.getElementById("close-stats");
 
-// profile toggle
+const searchInput = document.getElementById("search");
+const submitSearch = document.getElementById("fetch-champions");
+const searchModal = document.getElementById("search-modal");
+const searchResults = document.getElementById("search-results");
+const closeSearchModal = document.getElementById("close-search-modal");
+
+// profile
 accessProfileButton.addEventListener("click", () => playerProfile.classList.toggle("hidden"));
 closeProfileButton.addEventListener("click", () => playerProfile.classList.toggle("hidden"));
 
@@ -36,6 +42,37 @@ let credits = parseInt(creditsDisplay.textContent);
 
 // clear radar chart
 let radarChart = null;
+
+// champion search
+submitSearch.addEventListener("click", () => {
+    const query = searchInput.value.toLowerCase();
+    champions.forEach(champion => {
+        if (champion.name.toLowerCase().includes(query)) {
+            // Show search modal
+            searchModal.classList.remove("hidden");
+            const existing = searchResults.querySelector(`[data-name="${champion.name}"]`);
+            if (!existing) {
+                const result = document.createElement("div");
+                result.className = "p-2 hover:bg-secondary cursor-pointer";
+                result.textContent = champion.name;
+                result.dataset.name = champion.name;
+                result.addEventListener("click", () => {
+                    openStatsModal(champion);
+                    searchModal.classList.add("hidden");
+                    searchInput.value = "";
+                    searchResults.innerHTML = "";
+                });
+                searchResults.appendChild(result);
+            }
+        }
+    });
+});
+// Close search modal
+closeSearchModal.addEventListener("click", () => {
+    searchModal.classList.add("hidden");
+    searchInput.value = "";
+    searchResults.innerHTML = "";
+});
 
 // unlock modal
 function openUnlockModal(champion) {
