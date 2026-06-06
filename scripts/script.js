@@ -1,8 +1,9 @@
-// ── Helpers ─
+// for css variable access
 function cssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+// (Chart.js doesn't support alpha in CSS variables)
 function withAlpha(oklchVal, alpha) {
     return oklchVal.replace(/\)$/, "") + ` / ${alpha})`;
 }
@@ -26,17 +27,17 @@ const statsMeta = document.getElementById("stats-meta");
 const statsLegend = document.getElementById("stats-legend");
 const closeStatsBtn = document.getElementById("close-stats");
 
-// ── Profile modal ──────────────────────────────────────────────
+// profile toggle
 accessProfileButton.addEventListener("click", () => playerProfile.classList.toggle("hidden"));
 closeProfileButton.addEventListener("click", () => playerProfile.classList.toggle("hidden"));
 
-// ── Credits ─
+// credits
 let credits = parseInt(creditsDisplay.textContent);
 
-// ── Active chart instance (destroy before redraw) ──────────────
+// clear radar chart
 let radarChart = null;
 
-// ── Unlock modal ───────────────────────────────────────────────
+// unlock modal
 function openUnlockModal(champion) {
     unlockImg.src = champion.image;
     unlockImg.alt = champion.name;
@@ -57,7 +58,7 @@ function closeUnlockModal() { unlockModal.classList.add("hidden"); }
 closeUnlockBtn.addEventListener("click", closeUnlockModal);
 unlockModal.addEventListener("click", e => { if (e.target === unlockModal) closeUnlockModal(); });
 
-// ── Stats modal ────────────────────────────────────────────────
+// stats modal function
 function openStatsModal(champion) {
     statsImg.src = champion.image;
     statsImg.alt = champion.name;
@@ -97,8 +98,8 @@ function openStatsModal(champion) {
         const values = Object.values(stats);
 
         const colors = {
-            primary: cssVar("--chart-1"),
-            accent: cssVar("--chart-2"),
+            primary: cssVar("--chart-5"),
+            accent: cssVar("--chart-1"),
             foreground: cssVar("--foreground"),
             cardForeground: cssVar("--card-foreground"),
         };
@@ -192,7 +193,7 @@ function closeStatsModal() { statsModal.classList.add("hidden"); }
 closeStatsBtn.addEventListener("click", closeStatsModal);
 statsModal.addEventListener("click", e => { if (e.target === statsModal) closeStatsModal(); });
 
-// ── Acquire buttons ────────────────────────────────────────────
+// switch "Acquire" button to "Acquired" and show confetti
 document.querySelectorAll(".aquire").forEach(button => {
     button.addEventListener("click", () => {
         const card = button.closest(".champion-card");
@@ -212,6 +213,13 @@ document.querySelectorAll(".aquire").forEach(button => {
             acquired.textContent = "Acquired";
             button.replaceWith(acquired);
 
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: [cssVar("--chart-1"), cssVar("--chart-2"), cssVar("--chart-3"), cssVar("--chart-4"), cssVar("--chart-5")],
+            });
+
             if (champion) openUnlockModal(champion);
         } else {
             alert(`Not enough credits! Need ${price}, you have ${credits}.`);
@@ -219,7 +227,7 @@ document.querySelectorAll(".aquire").forEach(button => {
     });
 });
 
-// ── Info ("i") buttons ─────────────────────────────────────────
+// champion details modal
 document.querySelectorAll(".details").forEach(button => {
     if (button.textContent.trim() !== "i") return;
     button.addEventListener("click", () => {
