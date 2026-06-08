@@ -69,7 +69,7 @@
   --secondary: oklch(0.6152 0.1657 26.9800);
   --secondary-foreground: oklch(0 0 0);
   --muted: oklch(0.2246 0.0094 107.1335);
-  --muted-foreground: oklch(1.0000 0 0);
+  --muted-foreground: oklch(55.553% 0.00006 271.152);
   --accent: oklch(0.6152 0.1657 26.9800);
   --accent-foreground: oklch(0 0 0);
   --destructive: oklch(0.6152 0.1657 26.9800);
@@ -147,10 +147,18 @@
   font-weight: 400;
   font-style: normal;
 }
+
 .chakra-petch-bold {
   font-family: "Chakra Petch", sans-serif;
   font-weight: 700;
   font-style: normal;
+}
+
+.badge {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
 }
 
 

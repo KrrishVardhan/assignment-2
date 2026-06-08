@@ -29,7 +29,7 @@ const closeStatsBtn = document.getElementById("close-stats");
 
 const searchInput = document.getElementById("search");
 const submitSearch = document.getElementById("fetch-champions");
-const searchModal = document.getElementById("search-modal");
+const searchSection = document.getElementById("search-section");
 const searchResults = document.getElementById("search-results");
 const closeSearchModal = document.getElementById("close-search-modal");
 
@@ -45,31 +45,75 @@ let radarChart = null;
 
 // champion search
 submitSearch.addEventListener("click", () => {
-    const query = searchInput.value.toLowerCase();
-    champions.forEach(champion => {
-        if (champion.name.toLowerCase().includes(query)) {
-            // Show search modal
-            searchModal.classList.remove("hidden");
-            const existing = searchResults.querySelector(`[data-name="${champion.name}"]`);
-            if (!existing) {
-                const result = document.createElement("div");
-                result.className = "p-2 hover:bg-secondary cursor-pointer";
-                result.textContent = champion.name;
-                result.dataset.name = champion.name;
-                result.addEventListener("click", () => {
-                    openStatsModal(champion);
-                    searchModal.classList.add("hidden");
-                    searchInput.value = "";
-                    searchResults.innerHTML = "";
-                });
-                searchResults.appendChild(result);
-            }
-        }
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (!query) {
+        searchResults.textContent = "Please enter a champion name.";
+        return;
+    }
+
+    const champion = champions.find(c =>
+        c.name.toLowerCase().startsWith(query)
+    );
+
+    searchResults.innerHTML = "";
+    searchSection.classList.remove("hidden");
+
+    if (champion) {
+        const resultCard = document.createElement("div");
+
+        resultCard.className =
+            "champion-result-card border border-primary p-8 flex gap-10 items-center bg-background text-white";
+
+        resultCard.innerHTML = `
+    <div>
+        <img
+            src="${champion.image}"
+            alt="${champion.name}"
+            class="w-40 h-40 object-contain ${champion.unlocked ? "" : "locked"}"
+            data-price="${champion.price}"
+        >
+    </div>
+
+    <div class="flex-1">
+        <div class="flex justify-between items-center">
+            <h3 class="text-5xl font-bold uppercase">${champion.name}</h3>
+            <span class="text-sm font-bold uppercase badge">${champion.class}</span>
+        </div>
+
+        <hr class="my-6 border-muted-foreground">
+
+        <p class="text-muted-foreground mb-6">
+            ${champion.description}
+        </p>
+
+        <p class="text-sm text-muted-foreground mb-4">
+            Origin: ${champion.origin}
+        </p>
+
+        <div class="grid grid-cols-2 gap-3">
+            ${Object.entries(champion.stats).map(([stat, value]) => `
+                <div class="border border-border rounded-lg p-3 bg-muted">
+                    <p class="uppercase text-xs text-muted-foreground">${stat}</p>
+                    <p class="font-bold">${"★".repeat(value)}</p>
+                </div>
+            `).join("")}
+        </div>
+    </div>
+`;
+
+        searchResults.appendChild(resultCard);
+    } else {
+        searchResults.textContent = "No champions found.";
+    }
+
+    searchSection.scrollIntoView({
+        behavior: "smooth"
     });
 });
 // Close search modal
 closeSearchModal.addEventListener("click", () => {
-    searchModal.classList.add("hidden");
+    searchSection.classList.add("hidden");
     searchInput.value = "";
     searchResults.innerHTML = "";
 });
@@ -81,6 +125,8 @@ function openUnlockModal(champion) {
     unlockName.textContent = champion.name;
     unlockMeta.textContent = `${champion.class} · ${champion.origin}`;
     unlockDesc.textContent = champion.description;
+
+    champion.unlocked = true;
 
     unlockModal.classList.remove("hidden");
     // Restart animation by re-inserting the class

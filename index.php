@@ -41,7 +41,7 @@ $champions = [
     ],
 
     [
-        "name" => "Thor",
+        "name" => "Thor (Ragnarok)",
         "class" => "Cosmic",
         "description" => "God of Thunder wielding Mjolnir and commanding lightning and storms.",
         "origin" => "Marvel Comics",
@@ -59,7 +59,7 @@ $champions = [
 
     [
         "name" => "Hulk",
-        "class" => "Cosmic",
+        "class" => "Science",
         "description" => "Incredible strength and durability fueled by rage, making him nearly unstoppable.",
         "origin" => "Marvel Comics",
         "image" => "assets/hulk.webp",
@@ -239,7 +239,7 @@ $champions = [
     <h2 class="text-2xl font-semibold mb-6">Champions</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <?php foreach ($champions as $champion) : ?>
-            <div class="champion-card bg-muted rounded-lg shadow-md overflow-hidden relative">
+            <div class="champion-card border border-border bg-muted rounded-lg shadow-md overflow-hidden relative">
                 <img src="<?= $champion['image'] ?>"
                      data-price="<?= $champion['price'] ?>"
                      alt="<?= $champion['name'] ?>"
