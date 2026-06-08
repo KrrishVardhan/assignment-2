@@ -21,6 +21,7 @@ $champions = [
             "strength" => 4,
             "durability" => 4,
         ],
+        "signature_ability" => "Iron Man Armor Mark III"
     ],
 
     [
@@ -38,6 +39,7 @@ $champions = [
             "strength" => 3,
             "durability" => 3,
         ],
+        "signature_ability" => "Shield of Captain America"
     ],
 
     [
@@ -55,6 +57,7 @@ $champions = [
             "strength" => 5,
             "durability" => 5,
         ],
+        "signature_ability" => "Renewed Spark"
     ],
 
     [
@@ -72,6 +75,7 @@ $champions = [
             "strength" => 5,
             "durability" => 5,
         ],
+        "signature_ability" => "Gamma Brawler"
     ],
 
     [
@@ -89,6 +93,7 @@ $champions = [
             "strength" => 2,
             "durability" => 2,
         ],
+        "signature_ability" => "Taser Strike"
     ],
 
     [
@@ -106,6 +111,7 @@ $champions = [
             "strength" => 3,
             "durability" => 3,
         ],
+        "signature_ability" => "Spider-Sense"
     ],
 
     [
@@ -123,6 +129,7 @@ $champions = [
             "strength" => 2,
             "durability" => 3,
         ],
+        "signature_ability" => "Mystic Arts"
     ],
 
     [
@@ -140,6 +147,7 @@ $champions = [
             "strength" => 3,
             "durability" => 3,
         ],
+        "signature_ability" => "Panther Habit"
     ],
 
     [
@@ -157,6 +165,7 @@ $champions = [
             "strength" => 5,
             "durability" => 5,
         ],
+        "signature_ability" => "Photon Blast"
     ],
 
     [
@@ -174,6 +183,7 @@ $champions = [
             "strength" => 2,
             "durability" => 2,
         ],
+        "signature_ability" => "Quantum Manipulation"
     ],
 
     [
@@ -191,6 +201,7 @@ $champions = [
             "strength" => 4,
             "durability" => 4,
         ],
+        "signature_ability" => "Symbiote Bond"
     ],
 
     [
@@ -208,6 +219,7 @@ $champions = [
             "strength" => 4,
             "durability" => 4,
         ],
+        "signature_ability" => "Adamantium Claws"
     ],
 ];
 ?>
@@ -245,7 +257,10 @@ $champions = [
                      alt="<?= $champion['name'] ?>"
                      class="champion-image w-full object-cover object-center <?= $champion['unlocked'] ? '' : 'locked' ?>">
                 <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2"><?= $champion['name'] ?></h3>
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-xl font-bold"><?= $champion['name'] ?></h3>
+                        <span class="badge bg-primary font-bold text-foreground"><?= $champion['class'] ?></span>
+                    </div>
                     <p class="text-sm text-muted-foreground mb-4"><?= $champion['description'] ?></p>
                     <p class="text-xl text-chart-1 font-medium mb-2"><?= $champion['price'] ?> Credits</p>
                 </div>
@@ -275,6 +290,7 @@ $champions = [
 <?php include 'components/unlock.php'; ?>
 <?php include 'components/stats.php'; ?>
 <?php include 'components/search-modal.php'; ?>
+<?php include 'components/security.php'; ?>
 
 
 <script>const champions = <?= json_encode($champions) ?>;</script>

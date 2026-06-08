@@ -27,7 +27,7 @@
 ];
 ?>
 <?php $random_realm = $realms[array_rand($realms)]; ?>
-<div class="realm-info border <?= $random_realm['color'] ?> rounded-lg p-6 mb-12 text-center w-3xl mx-auto">
+<div class="realm-info border-3 border-dashed <?= $random_realm['color'] ?> rounded-lg p-6 mb-12 text-center w-3xl mx-auto">
     <h2 class="text-3xl <?= $random_realm['color'] ?> font-semibold mb-4">ACTIVE REALM: <?= $random_realm['name'] ?></h2>
     <p class="text-lg text-muted-foreground"><span class="font-bold">ZONE RULE:</span> <?= $random_realm['rule'] ?></p>
 </div>

@@ -13,11 +13,16 @@ const accessProfileButton = document.getElementById("access-profile");
 const closeProfileButton = document.getElementById("close-profile");
 const creditsDisplay = document.getElementById("player-credits");
 
+const securityTerminal = document.getElementById("security-terminal");
+const authModal = document.getElementById("auth-modal");
+const closeAuthBtn = document.getElementById("close-auth");
+
 const unlockModal = document.getElementById("unlock-modal");
 const unlockImg = document.getElementById("unlock-img");
 const unlockName = document.getElementById("unlock-name");
 const unlockMeta = document.getElementById("unlock-meta");
 const unlockDesc = document.getElementById("unlock-desc");
+const unlockedList = document.getElementById("unlocked-champions");
 const closeUnlockBtn = document.getElementById("close-unlock");
 
 const statsModal = document.getElementById("stats-modal");
@@ -36,6 +41,17 @@ const closeSearchModal = document.getElementById("close-search-modal");
 // profile
 accessProfileButton.addEventListener("click", () => playerProfile.classList.toggle("hidden"));
 closeProfileButton.addEventListener("click", () => playerProfile.classList.toggle("hidden"));
+
+// security terminal
+securityTerminal.addEventListener("click", () => {
+    authModal.classList.remove("hidden");
+});
+closeAuthBtn.addEventListener("click", () => {
+    authModal.classList.add("hidden");
+});
+authModal.addEventListener("click", e => {
+    if (e.target === authModal) authModal.classList.add("hidden");
+});
 
 // credits
 let credits = parseInt(creditsDisplay.textContent);
@@ -78,7 +94,7 @@ submitSearch.addEventListener("click", () => {
     <div class="flex-1">
         <div class="flex justify-between items-center">
             <h3 class="text-5xl font-bold uppercase">${champion.name}</h3>
-            <span class="text-sm font-bold uppercase badge">${champion.class}</span>
+            <span class="text-sm font-bold uppercase badge bg-primary">${champion.class}</span>
         </div>
 
         <hr class="my-6 border-muted-foreground">
@@ -88,7 +104,7 @@ submitSearch.addEventListener("click", () => {
         </p>
 
         <p class="text-sm text-muted-foreground mb-4">
-            Origin: ${champion.origin}
+            Signature Ability: <span class="text-foreground font-medium">${champion.signature_ability}</span>
         </p>
 
         <div class="grid grid-cols-2 gap-3">
@@ -134,6 +150,7 @@ function openUnlockModal(champion) {
     box.classList.remove("animate-unlock");
     void box.offsetWidth; // reflow
     box.classList.add("animate-unlock");
+    unlockedList.innerHTML += `<li>${champion.name}</li>`;
 }
 
 function closeUnlockModal() { unlockModal.classList.add("hidden"); }

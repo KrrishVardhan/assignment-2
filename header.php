@@ -12,7 +12,7 @@
 </head>
 
 <body class="bg-background text-foreground">
-    <header class="flex items-center justify-between px-8 py-4 border-b border-border">
+    <header class="flex items-center justify-between px-8 py-4 border-b border-border sticky top-0 z-30 bg-background">
         <div>
             <h1 class="text-3xl font-bold tracking-tight chakra-petch-bold text-primary">
                 Console Controller
@@ -23,7 +23,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <button class="px-4 py-2 rounded-lg border border-border hover:bg-secondary transition-colors cursor-pointer">
+            <button id="security-terminal" class="px-4 py-2 rounded-lg border border-border hover:bg-chart-4 transition-colors cursor-pointer">
                 Security Terminal
             </button>
 
